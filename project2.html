@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Inventory Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .low-stock {
+            background-color: #ffcccc;
+            color: #d8000c;
+            font-weight: bold;
+        }
+
+        .normal-stock {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .warning {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Inventory Manager</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Stock</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody id="productTable"></tbody>
+</table>
+
+<script>
+const products = [
+    { name: "Laptop", category: "Electronics", stock: 15 },
+    { name: "Mouse", category: "Accessories", stock: 4 },
+    { name: "Keyboard", category: "Accessories", stock: 34 },
+    { name: "Monitor", category: "Electronics", stock: 6 },
+    { name: "USB Cable", category: "Accessories", stock: 9 },
+    { name: "Computer", category: " Electronics", stock: 19}
+];
+
+const LOW_STOCK_LIMIT = 10;
+const table = document.getElementById("productTable");
+
+products.forEach(product => {
+    const row = document.createElement("tr");
+
+    const lowStock = product.stock <= LOW_STOCK_LIMIT;
+
+    row.innerHTML = `
+        <td>${product.name}</td>
+        <td>${product.category}</td>
+        <td class="${lowStock ? 'low-stock' : 'normal-stock'}">
+            ${product.stock}
+        </td>
+        <td>
+            ${lowStock
+                ? '<span class="warning">⚠ Low Stock</span>'
+                : '✅ In Stock'}
+        </td>
+    `;
+
+    table.appendChild(row);
+});
+</script>
+
+</body>
+</html>
